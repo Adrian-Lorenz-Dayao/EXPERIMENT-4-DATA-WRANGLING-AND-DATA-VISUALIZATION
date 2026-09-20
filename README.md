@@ -256,7 +256,8 @@ category_average = categories.plot(kind='bar', layout=(1, 3), figsize=(12, 4), y
 ```
 
 Test output:
-!(category average.png)
+<img width="4800" height="1600" alt="category average" src="https://github.com/user-attachments/assets/b666be45-4aa6-42e5-b0ee-e1a53c0fc3e2" />
+
 
 d.) With the graph completed, the given dataset can then be interpreted.
 
