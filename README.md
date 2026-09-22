@@ -6,6 +6,7 @@ The objective of the experiment will be to fully utilize the pandas library and 
 
 ```python
 import pandas as pd
+import matplotlib.pyplot as plt
 board2 = pd.read_excel('board2.xlsx') #reads the xlsx excel file and saves as a variable with the name 'board2'
 ```
 This will yield an output of:
@@ -243,25 +244,74 @@ Test output:
 | Mindanao   |   66.6786 |
 | Visayas    |   65.75   |
 
-c.) The second part of the program creates one figure containing three bar charts: mean Average by Track, by Gender, and by Hometown.
-The calculated dataframes from a. are combined into one dataframe whose columns are reorganized for a cleaner graph display
+c.) The graph is then designed with dimensions, type, title, and values being specified.
 ```python
-categories = pd.concat([Hometownavg, Genderavg, Trackavg], axis = 1) #combines all mean values from the saved dataframe variables into one new dataframe
-categories.columns = ['Hometown averages', 'Gender averages', 'Track averages'] #assigns columns to each group of averages to sort by category
-```
-The graph is then designed with dimensions, type, title, and values being specified.
-```python
-category_average = categories.plot(kind='bar', layout=(1, 3), figsize=(12, 4), ylim = (60, 70), rot=0, title="Mean Averages per category") 
-#creates a figure of bar graphs from the categories dataframe with a minimum vertical value of 60 and max value of 70
+fig, axes = plt.subplots(1, 3, figsize=(12, 4)) #assigns a variable fig for the entire figure and a variable axes for the graphs themselves
+
+# Hometown bar graph
+axes[0].bar(Hometownavg.index, Hometownavg['Average'])  #sets hometownavg categories as indices and assigns its respective values
+axes[0].set_title('Mean Average by Hometown') #sets graph title
+axes[0].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[0].set_ylim(60, 70) #zooms in on values from 60-70
+
+# Gender
+axes[1].bar(Genderavg.index, Genderavg['Average']) #sets Genderavg categories as indices and assigns its respective values
+axes[1].set_title('Mean Average by Gender') #sets graph title
+axes[1].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[1].set_ylim(60, 70) #zooms in on values from 60-70
+
+# Track
+axes[2].bar(Trackavg.index, Trackavg['Average']) #sets Trackavg categories as indices and assigns its respective values
+axes[2].set_title('Mean Average by Track') #sets graph title
+axes[2].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[2].set_ylim(60, 70) #zooms in on values from 60-70
+axes[2].tick_params(axis='x', labelsize=8) #decreases bar graph name sizes
+
+plt.show() #displays the graph
 ```
 
 Test output:
-<img width="4800" height="1600" alt="category average" src="https://github.com/user-attachments/assets/b666be45-4aa6-42e5-b0ee-e1a53c0fc3e2" />
+<img width="4800" height="1600" alt="category average" src="https://github.com/user-attachments/assets/1dccef1f-be10-4ed5-924b-f8ade10078c8" />
+
 
 
 d.) With the graph completed, the given dataset can then be interpreted.
 
-## Data interpretations:
+```python
+fig, axes = plt.subplots(1, 3, figsize=(12, 4)) #assigns a variable fig for the entire figure and a variable axes for the graphs themselves
+
+# Hometown bar graph
+axes[0].bar(Hometownavg.index, Hometownavg['Average'])  #sets hometownavg categories as indices and assigns its respective values
+axes[0].set_title('Mean Average by Hometown') #sets graph title
+axes[0].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[0].set_ylim(60, 70) #zooms in on values from 60-70
+
+# Gender
+axes[1].bar(Genderavg.index, Genderavg['Average']) #sets Genderavg categories as indices and assigns its respective values
+axes[1].set_title('Mean Average by Gender') #sets graph title
+axes[1].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[1].set_ylim(60, 70) #zooms in on values from 60-70
+
+# Track
+axes[2].bar(Trackavg.index, Trackavg['Average']) #sets Trackavg categories as indices and assigns its respective values
+axes[2].set_title('Mean Average by Track') #sets graph title
+axes[2].set_ylabel('Mean Average') #labels the y axis as the mean of the averages
+axes[2].set_ylim(60, 70) #zooms in on values from 60-70
+axes[2].tick_params(axis='x', labelsize=8) #decreases bar graph name sizes
+
+fig.text(0.5, 0.02,  """Data interpretations:
+
 Hometown Averages: For the feature of hometown averages, the graph shows that Luzon has the highest mean among the three categories.
+
 Gender Averages: Between the two categories in the gender averages feature, the male category has a higher mean value for its averages.
-Track Averages: The communications category contains the highest mean value for its averages in the Track feature as compared to the other two categories.
+
+Track Averages: The Communication category contains the highest mean value for its averages in the Track feature as compared to the other two categories.""",
+    ha='center'
+)
+
+plt.tight_layout(rect=[0, 0.35, 1, 1]) #adds space below graph
+
+plt.show() #displays the graph
+```
+Test output:
+<img width="4800" height="1600" alt="category average with text" src="https://github.com/user-attachments/assets/f040f5a1-785f-435c-9e56-69949c802b22" />
